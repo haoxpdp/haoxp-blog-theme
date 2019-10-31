@@ -1,0 +1,16 @@
+<div class="content-ll">
+    <section class="archives-wrap">
+        <div class="archives">
+                <% for (var x of categories) { %>
+                    <% var url = 'categories/'+x %>
+                    <div class="archive-article archive-type-post">   
+                        <header class="archive-article-header">
+                            <h1 itemprop="name">
+                                    <a class="archive-article-title" href = "<%= url %>" ><%= x %></a>
+                            </h1>
+                        </header>
+                    </div>
+                <% } %>       
+        </div>
+    </section>
+</div>    

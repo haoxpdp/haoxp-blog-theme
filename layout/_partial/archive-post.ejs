@@ -1,0 +1,19 @@
+<article class="archive-article archive-type-<%= post.layout %>">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+        <% if(level == -1){ %>
+            <% post.path = category %>
+            <% post.title = title %>
+            <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+        <% }else{ %>
+	      	<%- partial('post/date', {class_name: 'archive-article-date', date_format: null}) %>
+          <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+        <% } %>
+        <!-- <div class="article-info info-on-right">
+          <%- partial('post/tag') %>
+          <%- partial('post/category') %>
+        </div> -->
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>

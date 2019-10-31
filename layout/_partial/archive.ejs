@@ -1,0 +1,62 @@
+<% if (pagination == 2){ %>
+  <script>
+    console.log(window.location.href)
+    window.location.href="/about"
+  </script>
+<% } else { %>
+  <% var last; %>
+  <% let categories = new Set() %>
+  <% var level = page.base.split('/').length - 2 %>
+
+  <% console.log('level : ' + level) %>
+  <% page.posts.each(function(post, i){ %>
+     <% if( post.categories.length > level) { %>
+        <% console.log(post.categories.data[level].name) %>
+
+        
+
+        <% console.log('post.title ' +post.title) %>
+
+     <% } %>
+  <% }) %>
+
+  <% page.posts.each(function(post, i){ %>
+      <% var year = post.date.year(); %>
+      <% if (last != year){ %>
+        <% if (last != null){ %>
+          </div></section>
+        <% } %>
+        <% last = year; %>
+        <section class="archives-wrap">
+          <div class="archives">
+      <% } %>
+            <% if(  post.categories.length > level ) {%>
+              <% for ( var i = 0;i <= level ; i++ ){ %>
+                <% var c = '/categories/' %>
+                <% c = c +  post.categories.data[i].name + '/' %>
+                <% console.log(post.categories.data[i].name) %>
+              <% } %>
+              <% console.log(c) %>
+              <% if(!categories.has(c)) { %>
+                <% categories.add(c) %>
+                <%- partial('archive-post', {post: post, even: i % 2 == 0,level: -1,category: c,title: post.categories.data[level].name}) %>
+              <% } %>
+            <% } else { %>
+              <%- partial('archive-post', {post: post, even: i % 2 == 0,level: page.posts.length}) %>
+            <% } %>
+
+  <% }) %>
+  <% if (page.posts.length){ %>
+    </div></section>
+  <% } %>
+
+    <% if (page.total > 1){ %>
+    <nav id="page-nav">
+      <%- paginator({
+        prev_text: '&laquo; Prev',
+        next_text: 'Next &raquo;'
+      }) %>
+    </nav>
+  <% } %>
+
+<% } %>
